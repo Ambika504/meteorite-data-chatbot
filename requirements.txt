@@ -1,0 +1,4 @@
+flask
+pandas
+plotly
+google-generativeai

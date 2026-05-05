@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 # Configure Gemini API
-genai.configure(api_key="AIzaSyDlmOWBgHATzuycAcVJzwvkFJFyu9LavVQ")
+genai.configure(api_key="GEMINI_API_KEY")
 model = genai.GenerativeModel("gemini-1.5-pro")
 
 # Load meteorite data
@@ -164,9 +164,12 @@ def search_dataset(q):
     return None
 
 def ask_gemini(q):
+    if not model:
+        return "Gemini API not configured."
+
     try:
         res = model.generate_content(q)
-        return res.text
+        return res.text if res and res.text else "No response generated."
     except Exception as e:
         return f"⚠️ Gemini API error: {e}"
 
